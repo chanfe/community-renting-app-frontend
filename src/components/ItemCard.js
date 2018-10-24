@@ -25,7 +25,7 @@ const ItemCard = props => {
           </div>
 
           <div className="meta text-wrap">
-            <small>{"cost:" + item.cost}</small>
+            <small>{"cost: $" + item.cost + " per day"}</small>
           </div>
         </div>
         <button

@@ -1,20 +1,87 @@
-import React from 'react';
-import { Button, Header, Image, Modal } from 'semantic-ui-react'
+import React, { Component } from 'react';
+import { Button, Header, Image, Modal, Icon, Form, Checkbox, Message } from 'semantic-ui-react'
+import history from '../history';
 
-const Login = (props) => {
-  return (
-    <Modal open onClick={props.handleLoginClick}>
-      <Modal.Header>Login</Modal.Header>
-      <Modal.Content image>
-        <Image wrapped size='medium' src='https://react.semantic-ui.com/images/avatar/large/rachel.png' />
-        <Modal.Description>
-          <Header>Default Profile Image</Header>
-          <p>ll</p>
-          <p>Is it okay to use this photo?</p>
-        </Modal.Description>
-      </Modal.Content>
-    </Modal>
-  );
-};
+class Login extends Component {
+  constructor(props){
+    super(props)
+    this.state ={
+      error:null,
+      username:"",
+      password:""
+    }
+  }
+
+  handleUsername = (event) =>{
+    this.setState({
+      username: event.target.value
+    })
+  }
+
+  handlePassword = (event) =>{
+    this.setState({
+      password: event.target.value
+    })
+  }
+
+  handleLoginModal = () =>{
+    console.log(this.state)
+    this.login(this.state.username, this.state.password);
+  }
+
+  login = (username, password) =>{
+    fetch('http://localhost:3000/auth', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        username,
+        password
+      })
+    }).then(res => res.json())
+    .then(resp => {
+        console.log("responce from login ",resp)
+        if (resp.error) {
+          this.setState({ error: resp.error });
+        } else {
+          this.props.handleLogin(resp);
+          history.push("/Home");
+          this.props.handleLoginClick();
+        }
+      });
+  }
+
+
+  render(){
+    return (
+      <Modal open >
+        <Modal.Header>Login</Modal.Header>
+        {this.state.error ? <Modal.Content> <Message color='red'>{this.state.error}</Message></Modal.Content> : ""}
+        <Modal.Content>
+          <Form>
+            <Form.Field value={this.state.username} onChange={this.handleUsername}>
+              <label>Username</label>
+              <input placeholder='Username' />
+            </Form.Field>
+            <Form.Field type='password' value={this.state.password} onChange={this.handlePassword}>
+              <label>Password</label>
+              <input placeholder='Password' type='password'/>
+            </Form.Field>
+          </Form>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button color='red' onClick={this.props.handleLoginClick}>
+            <Icon name='remove' /> Exit
+          </Button>
+          <Button color='green' onClick={this.handleLoginModal}>
+            <Icon name='checkmark' /> Login
+          </Button>
+        </Modal.Actions>
+      </Modal>
+    );
+  };
+}
 
 export default Login;

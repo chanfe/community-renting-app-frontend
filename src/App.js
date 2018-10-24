@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './App.css';
 import {
   BrowserRouter as Router,
   Route,
@@ -10,21 +11,98 @@ import SignUp from './components/SignUp';
 import NavBar from './containers/NavBar';
 import List from './containers/HostListPage';
 import Host from './containers/HostPage';
+import Renter from './containers/RenteringPage';
+import history from './history'
 
 
 class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      user: null
+    }
+  }
+
+  componentDidMount() {
+    console.log(localStorage.getItem("jwt"))
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      fetch("http://localhost:3000/current_user", {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: token
+        }
+      })
+        .then(resp => resp.json())
+        .then(user => {
+          this.setState({ user: user });
+        });
+    }
+  }
+
+  handleLogin = resp => {
+    localStorage.setItem("jwt", resp.jwt);
+    console.log("jwt code",resp.jwt)
+
+    fetch("http://localhost:3000/current_user", {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: resp.jwt
+      }
+    })
+      .then(resp => resp.json())
+      .then(user => {
+        this.setState({ user: user });
+      });
+  };
+
+  handleLogout = () => {
+    localStorage.removeItem("jwt");
+    this.setState({ user:null });
+    console.log("Logouted");
+  };
+
+  onSignUp = (user) => {
+    fetch('http://localhost:3000/hosts/', {
+      method: "POST",
+      headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            // "Content-Type": "application/x-www-form-urlencoded",
+        },
+      body: JSON.stringify({
+        "name":user.name,
+        "username":user.username,
+        "password":user.password,
+      }),
+    }).then(res => res.json()).then(console.log)
+    fetch('http://localhost:3000/renters/', {
+      method: "POST",
+      headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            // "Content-Type": "application/x-www-form-urlencoded",
+        },
+      body: JSON.stringify({
+        "name":user.name,
+        "username":user.username,
+      }),
+    }).then(res => res.json()).then(console.log)
+  }
+
   render() {
+    console.log(this.props)
     return (
       <div>
         <Router>
           <React.Fragment>
-            <NavBar>
+            <NavBar handleLogin={this.handleLogin} handleLogout={this.handleLogout} user={this.state.user} handleLogout={this.handleLogout}>
               <Switch>
-                <Route exact path="/Login" component={Login} />
-                <Route exact path="/List" component={List} />
-                <Route exact path="/SignUp" component={SignUp} />
-                <Route exact path="/Host" component={Host} />
-                <Route exact path="/" component={Home} />
+                <Route exact path="/List" render={(props) => <List user={this.state.user} history={props.history}/>} />
+                <Route exact path="/SignUp" render={(props) => <SignUp {...props} handleUser={this.handleLogin} onSignUp={this.onSignUp} history={props.history}/>}/>
+                <Route exact path="/Host" render={(props) => <Host user={this.state.user} history={props.history}/>}/>
+                <Route exact path="/Renter" render={(props) => <Renter user={this.state.user} history={props.history}/>}/>
+                <Route path="/" render={(props) => <Home user={this.state.user} history={props.history}/>} />
               </Switch>
             </NavBar>
           </React.Fragment>

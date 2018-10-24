@@ -1,9 +1,10 @@
 import React from "react";
 
 const ItemSpec = props => {
-  let { item } = props;
+  let { item, handleCardClick, removeCardClick, buttonName } = props;
 
   let itemType;
+  console.log(props)
 
   switch (item.item_class) {
     case "Assault":
@@ -33,35 +34,18 @@ const ItemSpec = props => {
           <div className="four wide column">
             <h2>Name: {item.name}</h2>
             <p>
-              <strong>Catchphrase: </strong>
-              {item.description}
+              <strong>Description: </strong>
+              {item.discription}
             </p>
             <strong>
-              Class: {item.price} {itemType}
+              Price: ${item.cost} per day
             </strong>
             <br />
-            <div className="ui segment">
-              <div className="ui three column centered grid">
-                <div className="row">
-                  <div className="column">
-                    <i className="icon large circular red heartbeat" />
-                    <strong>{}</strong>
-                  </div>
-                  <div className="column">
-                    <i className="icon large circular yellow lightning" />
-                    <strong>{}</strong>
-                  </div>
-                  <div className="column">
-                    <i className="icon large circular blue shield" />
-                    <strong>{}</strong>
-                  </div>
-                </div>
-              </div>
-            </div>
+
             <button
               className="ui button fluid"
               onClick={() =>
-                console.log("something on lick")
+                handleCardClick(null)
               }
             >
               Go Back
@@ -69,11 +53,11 @@ const ItemSpec = props => {
             <button
               className="ui button fluid"
               onClick={() =>{
-                console.log('do something on click.')
+                removeCardClick(item)
                 }
               }
             >
-              Enlist
+              {buttonName}
             </button>
           </div>
         </div>

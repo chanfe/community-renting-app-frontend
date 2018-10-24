@@ -1,16 +1,60 @@
 import React, { Component } from 'react';
+import RentersCollection from './RentersCollection';
+import { Container, Segment } from 'semantic-ui-react';
+
 
 class RenteringPage extends Component {
   constructor() {
     super();
+    this.state = {
+      items:[]
+    }
+  }
+
+  componentDidMount(){
+    if (this.props.user){
+      fetch(`http://localhost:3000/renters/${this.props.user.id}`).then(res => res.json()).then(res => {
+        this.setState({
+          items:res.items
+        })
+      })
+    }
+    else{
+      this.props.history.push('/SignUp')
+    }
+  }
+
+  componentDidUpdate(){
+    if (this.props.user){
+      fetch(`http://localhost:3000/renters/${this.props.user.id}`).then(res => res.json()).then(res => {
+        this.setState({
+          items:res.items
+        })
+      })
+    }
+    else{
+      this.props.history.push('/SignUp')
+    }
+  }
+
+  changeItems = (items) =>{
+    this.setState({
+      items:items
+    })
+  }
+
+  getItems = () =>{
+    return this.state.items
   }
 
   render(){
     return (
-      <div>
-        <h1>Render Page </h1>
-
-      </div>
+      <Container>
+        <Segment>
+          <h1> Item(s) you are renting out for use </h1>
+          <RentersCollection items={this.state.items} button_name="Edit" changeItems={this.changeItems} getItems={this.getItems}/>
+        </Segment>
+      </Container>
     )
   }
 }

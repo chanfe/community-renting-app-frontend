@@ -3,7 +3,7 @@ import { Input } from 'semantic-ui-react';
 import ReactDropzone from 'react-dropzone';
 
 const Photo = props => {
-  const { item, onDrop } = props;
+  const { item, onDrop, changePhoto, photo} = props;
 
   return (
     <div>
@@ -14,6 +14,8 @@ const Photo = props => {
         >
           Drop your best Photo here!!
         </ReactDropzone>
+      <p>work in progress instead uplaod by sending a html below instead</p>
+      <input value={photo} onChange={changePhoto} />
     </div>
   )
 }

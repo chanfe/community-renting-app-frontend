@@ -1,29 +1,59 @@
 import React, { Component } from 'react';
-import ItemCollection from './ItemCollection'
+import HostCollection from './HostCollection'
+import { Container } from 'semantic-ui-react';
 
 class HostPage extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       items: []
     }
   }
 
   componentDidMount(){
-    fetch('http://localhost:3000/hosts/1').then(res => res.json()).then(res => {
-      this.setState({
-        items:res.items
+    console.log("hostpage", this.props.user)
+    if (this.props.user){
+      fetch(`http://localhost:3000/hosts/${this.props.user.id}`).then(res => res.json()).then(res => {
+        this.setState({
+          items:res.items
+        })
       })
+    }
+    else{
+      this.props.history.push('/')
+    }
+  }
+
+  componentDidUpdate(){
+    if (this.props.user){
+      fetch(`http://localhost:3000/hosts/${this.props.user.id}`).then(res => res.json()).then(res => {
+        this.setState({
+          items:res.items
+        })
+      })
+    }
+    else{
+      this.props.history.push('/')
+    }
+  }
+
+  getItems = () => {
+    return this.state.items
+  }
+
+  changeItems = (items) =>{
+    this.setState({
+      items:items
     })
   }
 
 
   render(){
     return (
-      <div>
-        <h1>Host Page </h1>
-        <ItemCollection items={this.state.items} button_name="Edit"/>
-      </div>
+      <Container>
+        <h1> Item(s) you are trying to rent out </h1>
+        <HostCollection items={this.state.items} button_name="Edit" changeItems={this.changeItems} getItems={this.getItems}/>
+      </Container>
     )
   }
 }

@@ -16,6 +16,7 @@ class UserCollection extends Component {
     return (
       <div className="ui segment inverted blue bot-army">
         <div className="ui five column grid">
+          <h2>Cart</h2>
           <div className="row bot-army-row">
             {itemCards}
           </div>

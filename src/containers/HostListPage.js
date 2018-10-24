@@ -5,7 +5,7 @@ import Description from '../components/renters_components/Description';
 import Pricings from '../components/renters_components/Pricings';
 import Place from '../components/renters_components/Place';
 
-import { Button } from 'semantic-ui-react'
+import { Button, Segment, Container } from 'semantic-ui-react'
 
 
 
@@ -28,8 +28,12 @@ class HostListPage extends Component {
   }
 
   onDrop = (file) =>{
+  }
+
+  changePhoto = (photo) =>{
+    console.log(photo.target.value)
     this.setState({
-      photo:file
+      photo:photo.target.value
     })
   }
 
@@ -59,25 +63,43 @@ class HostListPage extends Component {
             "Content-Type": "application/json",
         },
       body: JSON.stringify({
-        "host_id": 1,
+        "host_id": this.props.user.id,
         "name":this.state.title,
-        "image_url":this.state.photo[0],
+        "image_url":this.state.photo,
         "discription":this.state.description,
         "cost":this.state.price
       }),
-    }).then(res => res.json())
+    }).then(res => res.json()).then(this.props.history.push('/Host'))
+
+
   }
 
   render(){
     return (
-      <div>
-        <Title changeTitle={this.changeTitle}/>
-        <Photo onDrop={this.onDrop}/>
-        <Description changeDescription={this.changeDescription}/>
-        <Pricings changePrice={this.changePrice}/>
-        <Place changePlace={this.changePlace}/>
-        <Button primary onClick={this.handleFetch}>List it</Button>
-      </div>
+      <Container>
+        <Segment>
+          <h1>Listing Page</h1>
+          <div className="ui divider"></div>
+          <Title changeTitle={this.changeTitle}/>
+        </Segment>
+        <Segment>
+          <Photo changePhoto={this.changePhoto} photo={this.state.photo} onDrop={this.onDrop}/>
+        </Segment>
+        <Segment>
+          <Description changeDescription={this.changeDescription}/>
+        </Segment>
+        <Segment>
+          <Pricings changePrice={this.changePrice}/>
+        </Segment>
+        <Segment>
+          <Place changePlace={this.changePlace}/>
+        </Segment>
+        <Segment>
+          <Button floated='right' primary onClick={this.handleFetch} >List it</Button>
+          <br />
+          <br />
+        </Segment>
+      </Container>
     )
   }
 }
