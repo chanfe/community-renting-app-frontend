@@ -37,7 +37,6 @@ class HomePage extends Component {
   }
 
   rentItems = () => {
-    console.log(this.state)
     this.state.users_items.forEach((item) =>{
       fetch(`${URL}/items/${item.id}`, {
         method: "PATCH",
@@ -80,7 +79,6 @@ class HomePage extends Component {
   }
 
   render(){
-    console.log(this.state.items)
     return (
       <Container>
         {this.state.checkout ?

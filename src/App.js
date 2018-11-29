@@ -25,7 +25,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log(localStorage.getItem("jwt"))
     const token = localStorage.getItem("jwt");
     if (token) {
       fetch(`${URL}/current_user`, {
@@ -44,7 +43,6 @@ class App extends Component {
 
   handleLogin = resp => {
     localStorage.setItem("jwt", resp.jwt);
-    console.log("jwt code",resp.jwt)
 
     fetch(`${URL}/current_user`, {
       headers: {
@@ -92,7 +90,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <div>
         <Router>

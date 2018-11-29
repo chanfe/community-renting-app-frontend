@@ -13,7 +13,6 @@ class HostPage extends Component {
   }
 
   componentDidMount(){
-    console.log("hostpage", this.props.user)
     if (this.props.user){
       fetch(`${URL}/hosts/${this.props.user.id}`).then(res => res.json()).then(res => {
         this.setState({

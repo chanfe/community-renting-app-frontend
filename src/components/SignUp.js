@@ -54,7 +54,6 @@ class SignUp extends Component {
   }
 
   render() {
-    console.log(this.state.term)
     return (
       <Segment>
         <Grid centered columns={2}>

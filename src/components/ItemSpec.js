@@ -4,7 +4,6 @@ const ItemSpec = props => {
   let { item, handleCardClick, removeCardClick, buttonName } = props;
 
   let itemType;
-  console.log(props)
 
   switch (item.item_class) {
     case "Assault":

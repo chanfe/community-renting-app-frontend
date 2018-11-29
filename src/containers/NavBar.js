@@ -27,7 +27,6 @@ class NavBar extends Component {
   render() {
     const { children } = this.props
     const { visible } = this.state
-    console.log(this.state.login)
     const backgroundStyle = {
       backgroundColor: '#f5f5f5'
     };

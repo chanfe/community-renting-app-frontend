@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Header, Image, Modal, Icon, Form, Checkbox, Message } from 'semantic-ui-react'
 import history from '../history';
+const URL = 'https://community-renting-api.herokuapp.com';
 
 class Login extends Component {
   constructor(props){
@@ -25,12 +26,11 @@ class Login extends Component {
   }
 
   handleLoginModal = () =>{
-    console.log(this.state)
     this.login(this.state.username, this.state.password);
   }
 
   login = (username, password) =>{
-    fetch('http://localhost:3000/auth', {
+    fetch(`${URL}/auth`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -42,7 +42,6 @@ class Login extends Component {
       })
     }).then(res => res.json())
     .then(resp => {
-        console.log("responce from login ",resp)
         if (resp.error) {
           this.setState({ error: resp.error });
         } else {

@@ -31,7 +31,6 @@ class HostListPage extends Component {
   }
 
   changePhoto = (photo) =>{
-    console.log(photo.target.value)
     this.setState({
       photo:photo.target.value
     })
@@ -56,7 +55,6 @@ class HostListPage extends Component {
   }
 
   handleFetch = () =>{
-    console.log(this.state)
     fetch(`${URL}/items`, {
       method: "POST",
       headers: {
