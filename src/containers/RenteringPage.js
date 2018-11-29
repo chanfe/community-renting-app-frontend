@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import RentersCollection from './RentersCollection';
 import { Container, Segment } from 'semantic-ui-react';
-
+const URL = 'https://community-renting-api.herokuapp.com';
 
 class RenteringPage extends Component {
   constructor() {
@@ -13,7 +13,7 @@ class RenteringPage extends Component {
 
   componentDidMount(){
     if (this.props.user){
-      fetch(`http://localhost:3000/renters/${this.props.user.id}`).then(res => res.json()).then(res => {
+      fetch(`${URL}/renters/${this.props.user.id}`).then(res => res.json()).then(res => {
         this.setState({
           items:res.items
         })
@@ -26,7 +26,7 @@ class RenteringPage extends Component {
 
   componentDidUpdate(){
     if (this.props.user){
-      fetch(`http://localhost:3000/renters/${this.props.user.id}`).then(res => res.json()).then(res => {
+      fetch(`${URL}/renters/${this.props.user.id}`).then(res => res.json()).then(res => {
         this.setState({
           items:res.items
         })

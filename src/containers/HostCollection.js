@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ItemCard from '../components/ItemCard';
 import ItemSpec from '../components/ItemSpec';
 import { Segment } from 'semantic-ui-react';
+const URL = 'https://community-renting-api.herokuapp.com';
 
 
 class HostCollection extends Component {
@@ -19,7 +20,7 @@ class HostCollection extends Component {
   }
 
   removeCardClick = (item) => {
-    fetch(`http://localhost:3000/items/${item.id}`,{
+    fetch(`${URL}/items/${item.id}`,{
       method: "DELETE",
       headers: {
             "Content-Type": "application/json; charset=utf-8",

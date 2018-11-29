@@ -6,6 +6,9 @@ import NavBar from './NavBar';
 
 import { Button, Icon, Container } from 'semantic-ui-react'
 
+const URL = 'https://community-renting-api.herokuapp.com';
+
+
 
 class HomePage extends Component {
   constructor() {
@@ -18,7 +21,7 @@ class HomePage extends Component {
   }
 
   componentDidMount(){
-    fetch('http://localhost:3000/items').then(res => res.json()).then(res => {
+    fetch(`${URL}/items`).then(res => res.json()).then(res => {
       this.setState({
         items:res
       })
@@ -26,7 +29,7 @@ class HomePage extends Component {
   }
 
   componentDidUpdate(){
-    fetch('http://localhost:3000/items').then(res => res.json()).then(res => {
+    fetch(`${URL}/items`).then(res => res.json()).then(res => {
       this.setState({
         items:res
       })
@@ -36,7 +39,7 @@ class HomePage extends Component {
   rentItems = () => {
     console.log(this.state)
     this.state.users_items.forEach((item) =>{
-      fetch(`http://localhost:3000/items/${item.id}`, {
+      fetch(`${URL}/items/${item.id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

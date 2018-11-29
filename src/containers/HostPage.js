@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import HostCollection from './HostCollection'
 import { Container } from 'semantic-ui-react';
+const URL = 'https://community-renting-api.herokuapp.com';
+
 
 class HostPage extends Component {
   constructor(props) {
@@ -13,7 +15,7 @@ class HostPage extends Component {
   componentDidMount(){
     console.log("hostpage", this.props.user)
     if (this.props.user){
-      fetch(`http://localhost:3000/hosts/${this.props.user.id}`).then(res => res.json()).then(res => {
+      fetch(`${URL}/hosts/${this.props.user.id}`).then(res => res.json()).then(res => {
         this.setState({
           items:res.items
         })
@@ -26,7 +28,7 @@ class HostPage extends Component {
 
   componentDidUpdate(){
     if (this.props.user){
-      fetch(`http://localhost:3000/hosts/${this.props.user.id}`).then(res => res.json()).then(res => {
+      fetch(`${URL}/hosts/${this.props.user.id}`).then(res => res.json()).then(res => {
         this.setState({
           items:res.items
         })

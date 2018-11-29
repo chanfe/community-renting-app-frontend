@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ItemCard from '../components/ItemCard';
 import ItemSpec from '../components/ItemSpec';
+const URL = 'https://community-renting-api.herokuapp.com'
 
 class RentersCollection extends Component {
   constructor() {
@@ -17,7 +18,7 @@ class RentersCollection extends Component {
   }
 
   removeCardClick = (item) => {
-    fetch(`http://localhost:3000/return/${item.id}`,{
+    fetch(`${URL}/return/${item.id}`,{
       method: "PATCH",
       headers: {
             "Content-Type": "application/json",
