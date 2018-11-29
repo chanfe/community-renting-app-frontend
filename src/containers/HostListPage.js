@@ -7,7 +7,7 @@ import Place from '../components/renters_components/Place';
 
 import { Button, Segment, Container } from 'semantic-ui-react'
 
-
+const URL = 'https://community-renting-api.herokuapp.com';
 
 class HostListPage extends Component {
   constructor() {
@@ -57,7 +57,7 @@ class HostListPage extends Component {
 
   handleFetch = () =>{
     console.log(this.state)
-    fetch(`http://localhost:3000/items`, {
+    fetch(`${URL}/items`, {
       method: "POST",
       headers: {
             "Content-Type": "application/json",

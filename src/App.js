@@ -14,6 +14,7 @@ import Host from './containers/HostPage';
 import Renter from './containers/RenteringPage';
 import history from './history'
 
+const URL = 'https://community-renting-api.herokuapp.com';
 
 class App extends Component {
   constructor(props){
@@ -27,7 +28,7 @@ class App extends Component {
     console.log(localStorage.getItem("jwt"))
     const token = localStorage.getItem("jwt");
     if (token) {
-      fetch("http://localhost:3000/current_user", {
+      fetch(`${URL}/current_user`, {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
@@ -45,7 +46,7 @@ class App extends Component {
     localStorage.setItem("jwt", resp.jwt);
     console.log("jwt code",resp.jwt)
 
-    fetch("http://localhost:3000/current_user", {
+    fetch(`${URL}/current_user`, {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -65,7 +66,7 @@ class App extends Component {
   };
 
   onSignUp = (user) => {
-    fetch('http://localhost:3000/hosts/', {
+    fetch(`${URL}/hosts/`, {
       method: "POST",
       headers: {
             "Content-Type": "application/json; charset=utf-8",
@@ -77,7 +78,7 @@ class App extends Component {
         "password":user.password,
       }),
     }).then(res => res.json()).then(console.log)
-    fetch('http://localhost:3000/renters/', {
+    fetch(`${URL}/renters/`, {
       method: "POST",
       headers: {
             "Content-Type": "application/json; charset=utf-8",
