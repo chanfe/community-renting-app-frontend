@@ -33,7 +33,7 @@
   <h3 align="center"># community-renting-app-frontend (tentative name)</h3>
 
   <p align="center">
-    Equipment Tracker and Maintenance  Log
+    Community renting app Log
     <br />
     <a href="https://github.com/chanfe/community-renting-app-frontend"><strong>Explore the docs »</strong></a>
     <br />
