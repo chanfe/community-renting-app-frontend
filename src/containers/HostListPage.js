@@ -28,6 +28,9 @@ class HostListPage extends Component {
   }
 
   onDrop = (file) =>{
+    this.setState({
+      image:file.target.value
+    })
   }
 
   changePhoto = (photo) =>{
@@ -65,7 +68,8 @@ class HostListPage extends Component {
         "name":this.state.title,
         "image_url":this.state.photo,
         "discription":this.state.description,
-        "cost":this.state.price
+        "cost":this.state.price,
+        "image":this.state.image
       }),
     }).then(res => res.json()).then(this.props.history.push('/Host'))
 
