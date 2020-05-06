@@ -30,7 +30,7 @@
     <img src="#" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center"># community-renting-app-frontend (tentative name)</h3>
+  <h3 align="center"># community renting app (tentative name)</h3>
 
   <p align="center">
     Community renting app Log
