@@ -39,6 +39,7 @@ class CheckoutPage extends Component {
           </Grid.Column>
         </Segment>
       </Container>
+      
     )
   }
 }
